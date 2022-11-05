@@ -6,8 +6,6 @@ import SignUp from '../pages/auth/SignUp';
 
 
 const Routing: React.FC = () => {
-  const isLogged = true;
-
   return (
     <BrowserRouter>
       <Routes>
