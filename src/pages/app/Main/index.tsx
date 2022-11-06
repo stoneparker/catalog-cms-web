@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import type { ColumnsType } from 'antd/es/table';
 import { PlusSquareFilled, SearchOutlined } from '@ant-design/icons';
-import { Table } from 'antd';
+import { Table, Modal } from 'antd';
 
 import { products } from '../../../mocks/products';
 import { Product } from '../../../types/product';
@@ -34,7 +34,14 @@ const Products: React.FC = () => {
   }
 
   function deleteProduct(id: string) {
-    alert('delete product');
+    Modal.confirm({
+      title: 'Confirm',
+      content: 'Are you sure you want to delete this product? This action cannot be reversed.',
+      onOk: () => {
+        alert('deletedProduct');
+        // usemutation - get all products after deletion
+      },
+    });
   }
 
   const columns: ColumnsType<Product> = [
