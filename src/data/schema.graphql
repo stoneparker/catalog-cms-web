@@ -49,6 +49,12 @@ input ProductInput {
 
 type ProductModel {
   _id: ID!
+  availableQuantity: Float!
+  barcode: String!
+  description: String!
+  imageUrl: String!
+  name: String!
+  price: String!
 }
 
 input ProductModelInput {

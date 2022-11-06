@@ -1,15 +1,12 @@
-import { useState } from 'react';
-
-import type { ColumnsType } from 'antd/es/table';
+import { Suspense, useEffect, useState } from 'react';
 import { PlusSquareFilled, SearchOutlined } from '@ant-design/icons';
-import { Table, Modal } from 'antd';
+import { Modal } from 'antd';
 
-import { products } from '../../../mocks/products';
+import { useQueryLoader } from 'react-relay';
 import { Product } from '../../../types/product';
 
-import ProductDetail from '../../../components/ProductDetail';
 import ProductModal from '../../../components/ProductModal';
-import TableActions from '../../../components/TableActions';
+import Table ,{ productsQuery } from '../../../components/Table';
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
 
@@ -21,7 +18,22 @@ import {
   Main,
 } from './styles';
 
+
 const Products: React.FC = () => {
+  // const data = useLazyLoadQuery(
+  //   productsQuery,
+  //   { },
+  //   { fetchPolicy: 'network-only' },
+  // );
+
+  const [queryReference, loadQuery] = useQueryLoader(
+    productsQuery,
+  );
+
+  useEffect(() => {
+    loadQuery({});
+  }, [loadQuery]);
+
   const [showProductModal, setShowProductModal] = useState<{ show: boolean, product?: Product }>({ show: false });
 
   function handleCloseModal(reloadList: boolean) {
@@ -43,48 +55,6 @@ const Products: React.FC = () => {
       },
     });
   }
-
-  const columns: ColumnsType<Product> = [
-    {
-      title: 'Product details',
-      key: 'productDetails',
-      dataIndex: 'name',
-      render: (_, record) => (
-        <ProductDetail
-          imageUrl={record.imageUrl}
-          description={record.description}
-          name={record.name}
-        />
-      ),
-    },
-    {
-      title: 'Barcode',
-      dataIndex: 'barcode',
-      key: 'barcode',
-    },
-    {
-      title: 'Available quantity',
-      dataIndex: 'availableQuantity',
-      key: 'availableQuantity',
-    },
-    {
-      title: 'Price',
-      dataIndex: 'price',
-      key: 'price',
-    },
-    {
-      title: 'Actions',
-      key: 'action',
-      render: (_, record) => (
-        <TableActions
-          options={[
-            { title: 'Edit', action: () => editProduct(record) },
-            { title: 'Delete', action: () => deleteProduct(record._id) }
-          ]}
-        />
-      ),
-    },
-  ];
 
   return (
     <Container>
@@ -108,11 +78,15 @@ const Products: React.FC = () => {
           </HeaderActions>
         </Header>
         <Main>
-          <Table
-            columns={columns}
-            dataSource={products}
-            pagination={false}
-          />
+          { queryReference &&
+            <Suspense fallback={'Loading products...'}>
+              <Table
+                queryReference={queryReference}
+                deleteProduct={deleteProduct}
+                editProduct={editProduct}
+              />
+            </Suspense>
+          }
         </Main>
       </Content>
       <ProductModal
