@@ -1,24 +1,56 @@
-import { Form } from 'antd';
+import { Form, Modal } from 'antd';
+import { useMutation } from 'react-relay';
+import { useNavigate } from 'react-router-dom';
+// @ts-ignore
+import graphql from 'babel-plugin-relay/macro';
 
 import Input from '../../../components/Input';
 import AuthLayout from '../../../components/AuthLayout';
 import Button from '../../../components/Button';
 import Link from '../../../components/Link';
 
+import { login } from '../../../reducers/auth/actions';
+
 const SignIn: React.FC = () => {
   const [form] = Form.useForm();
+
+  const navigate = useNavigate();
+
+  const [commit, isInFlight] = useMutation(graphql`
+    mutation SignInMutation($data: LoginUser!) {
+      loginUser(data: $data) {
+        _id,
+        token,
+        email,
+        name,
+      }
+    }
+  `);
 
   function onFinish() {
     form
       .validateFields()
       .then((values) => {
-        // use update mutation
-        alert('submited form');
-
-        form.resetFields();
+        commit({
+          variables: {
+            data: values,
+          },
+          onCompleted(response: any, errors) {
+            login(response.loginUser);
+            navigate('/');
+            form.resetFields();
+          },
+          onError(error) {
+            console.log(error);
+            Modal.error({
+              title: 'Ops...',
+              content: 'Incorrect user or password',
+            });
+          }
+        })
       })
       .catch((info) => {
-        console.log('Validate failed :', info);
+        console.log('Validate failed:', info);
       });
   }
 
@@ -48,7 +80,12 @@ const SignIn: React.FC = () => {
         </Form.Item>
 
         <Form.Item label='' colon={false}>
-          <Button full type='primary' htmlType='submit'>
+          <Button
+            full
+            type='primary'
+            htmlType='submit'
+            loading={isInFlight}
+          >
             Log In
           </Button>
         </Form.Item>

@@ -35,6 +35,7 @@ type Mutation {
   createUser(data: CreateUser!): AuthReturn!
   deleteProduct(data: DeleteProductInput!): String!
   editProduct(data: ProductModelInput!): ProductModel!
+  loginUser(data: LoginUser!): AuthReturn!
 }
 
 input ProductInput {
@@ -63,5 +64,4 @@ input ProductModelInput {
 type Query {
   getProduct(data: GetProductInput!): ProductModel!
   listProducts: [ProductModel!]!
-  loginUser(data: LoginUser!): AuthReturn!
 }

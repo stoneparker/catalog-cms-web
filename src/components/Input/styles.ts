@@ -4,7 +4,7 @@ import { Input } from 'antd';
 export const Component = styled(Input)`
   border-radius: 8px;
 
-  &:not([type=textarea]), .ant-input {
+  &, .ant-input {
     min-height: 40px;
   }
 

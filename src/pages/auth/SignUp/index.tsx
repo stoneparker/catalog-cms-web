@@ -20,6 +20,9 @@ const SignUp: React.FC = () => {
     mutation SignUpMutation($data: CreateUser!) {
       createUser(data: $data) {
         _id,
+        token,
+        email,
+        name,
       }
     }
   `);
@@ -86,7 +89,12 @@ const SignUp: React.FC = () => {
         </Form.Item>
 
         <Form.Item label='' colon={false}>
-          <Button full type='primary' htmlType='submit' loading={isInFlight}>
+          <Button
+            full
+            type='primary'
+            htmlType='submit'
+            loading={isInFlight}
+          >
             Sign Up
           </Button>
         </Form.Item>
