@@ -18,6 +18,10 @@ const GlobalStyle = createGlobalStyle`
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   }
+
+  .ant-form-item-label {
+    padding: 0;
+  }
 `;
 
 export default GlobalStyle;

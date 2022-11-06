@@ -2,7 +2,11 @@ import type { ButtonProps } from 'antd/es/button';
 
 import { Component } from './styles';
 
-const Button: React.FC<ButtonProps> = (props) => {
+export interface Props {
+  full?: boolean;
+}
+
+const Button: React.FC<ButtonProps & Props> = (props) => {
   return (
     <Component {...props} />
   )
