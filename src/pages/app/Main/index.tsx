@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import type { ColumnsType } from 'antd/es/table';
 import { PlusSquareFilled, SearchOutlined } from '@ant-design/icons';
 import { Table } from 'antd';
@@ -6,6 +8,7 @@ import { products } from '../../../mocks/products';
 import { Product } from '../../../types/product';
 
 import ProductDetail from '../../../components/ProductDetail';
+import ProductModal from '../../../components/ProductModal';
 import TableActions from '../../../components/TableActions';
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
@@ -19,8 +22,15 @@ import {
 } from './styles';
 
 const Products: React.FC = () => {
-  function editProduct(id: string) {
-    alert('edit product');
+  const [showProductModal, setShowProductModal] = useState<{ show: boolean, product?: Product }>({ show: false });
+
+  function handleCloseModal(reloadList: boolean) {
+    // use query to reload list
+    setShowProductModal({ show: false });
+  }
+
+  function editProduct(product: Product) {
+    setShowProductModal({ show: true, product });
   }
 
   function deleteProduct(id: string) {
@@ -61,7 +71,7 @@ const Products: React.FC = () => {
       render: (_, record) => (
         <TableActions
           options={[
-            { title: 'Edit', action: () => editProduct(record._id) },
+            { title: 'Edit', action: () => editProduct(record) },
             { title: 'Delete', action: () => deleteProduct(record._id) }
           ]}
         />
@@ -76,7 +86,11 @@ const Products: React.FC = () => {
           <span id='salutation'>Hello, Lorem!</span> 
           <h1>Products</h1>
           <HeaderActions>
-            <Button type='primary' icon={<PlusSquareFilled />}>
+            <Button
+              type='primary'
+              icon={<PlusSquareFilled />}
+              onClick={() => setShowProductModal({ show: true })}
+            >
               NEW PRODUCT
             </Button>
             <Input
@@ -94,6 +108,11 @@ const Products: React.FC = () => {
           />
         </Main>
       </Content>
+      <ProductModal
+        open={showProductModal.show}
+        product={showProductModal.product}
+        close={(reloadList: boolean) => handleCloseModal(reloadList)}
+      />
     </Container>
   )
 }
