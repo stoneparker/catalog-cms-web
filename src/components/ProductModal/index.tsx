@@ -1,5 +1,8 @@
 import { useEffect } from 'react';
 import { Modal, Form, Row, Col } from 'antd';
+import { useMutation } from 'react-relay';
+// @ts-ignore
+import graphql from 'babel-plugin-relay/macro';
 
 import Input from '../Input';
 
@@ -8,9 +11,9 @@ import { Product } from '../../types/product';
 import { ImageWrapper } from './styles';
 
 export interface Props {
-  product?: Product,
-  open: boolean,
-  close: (reloadList: boolean) => void,
+  product?: Product;
+  open: boolean;
+  close: (reloadList: boolean) => void;
 }
 
 const ProductModal: React.FC<Props> = ({ open, product, close }) => {
@@ -19,20 +22,72 @@ const ProductModal: React.FC<Props> = ({ open, product, close }) => {
   const imageUrl = Form.useWatch('imageUrl', form);
   const name = Form.useWatch('name', form);
 
+  const [commit_new, isInFlight_new] = useMutation(graphql`
+    mutation ProductModal_new_Mutation($data: ProductInput!) {
+      createProduct(data: $data) {
+        _id,
+      }
+    }
+  `);
+
+  const [commit_update, isInFlight_update] = useMutation(graphql`
+    mutation ProductModal_update_Mutation($data: ProductModelInput!) {
+      updateProduct(data: $data) {
+        _id,
+      }
+    }
+  `);
+
+  function createProduct(values: any) {
+    commit_new({
+      variables: {
+        data: values,
+      },
+      onCompleted() {
+        form.resetFields();
+        close(true);
+      },
+      onError(error) {
+        console.log(error);
+        Modal.error({
+          title: 'Ops...',
+          content: 'Already exists a product with that name or barcode',
+        });
+      }
+    });
+  }
+
+  function updateProduct(values: any) {
+    if (!product) return;
+  
+    commit_update({
+      variables: {
+        data: { ...values, _id: product._id },
+      },
+      onCompleted() {
+        form.resetFields();
+        close(true);
+      },
+      onError(error) {
+        console.log(error);
+        Modal.error({
+          title: 'Ops...',
+          content: 'Product not exists or already exists a product with that name or barcode',
+        });
+      }
+    });
+  }
+
   function handleOk() {
     form
       .validateFields()
       .then((values) => {
-        if (product) {
-          // use update mutation
-          alert(`Updating: ${product.name}`);
-        } else {
-          // use creation mutation
-          alert(`Creating: ${values.name}`);
-        }
+        values.availableQuantity = Number(values.availableQuantity);
+        console.log(values);
+        if (product)
+          return updateProduct(values);
 
-        form.resetFields();
-        close(true);
+        createProduct(values);
       })
       .catch((info) => {
         console.log('Validate failed :', info);
@@ -55,6 +110,7 @@ const ProductModal: React.FC<Props> = ({ open, product, close }) => {
       title={`${product ? 'Edit' : 'New'} product`}
       onOk={handleOk}
       onCancel={handleCancel}
+      confirmLoading={isInFlight_new || isInFlight_update}
 
     >
       <Form

@@ -31,11 +31,15 @@ input LoginUser {
 }
 
 type Mutation {
-  createProduct(data: ProductInput!): ProductModel!
+  createProduct(data: ProductInput!): ProductIdModel!
   createUser(data: CreateUser!): AuthReturn!
-  deleteProduct(data: DeleteProductInput!): String!
-  editProduct(data: ProductModelInput!): ProductModel!
+  deleteProduct(data: DeleteProductInput!): ProductIdModel!
   loginUser(data: LoginUser!): AuthReturn!
+  updateProduct(data: ProductModelInput!): ProductIdModel!
+}
+
+type ProductIdModel {
+  _id: String!
 }
 
 input ProductInput {

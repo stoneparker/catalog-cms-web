@@ -5,7 +5,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   padding: 50px 0;
   background-color: #F7F7FA;
 `;
@@ -13,7 +13,7 @@ export const Container = styled.div`
 export const Content = styled.div`
   display: grid;
   grid-template-rows: auto 1fr;
-  width: 60%;
+  width: 70%;
 `;
 
 export const Header = styled.header`
