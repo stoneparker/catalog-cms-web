@@ -25,7 +25,7 @@ const Products: React.FC = () => {
 
   useEffect(() => {
     loadQuery({});
-  }, []);
+  }, [loadQuery]);
 
   function reloadList() {
     loadQuery({}, { fetchPolicy: 'network-only' });
