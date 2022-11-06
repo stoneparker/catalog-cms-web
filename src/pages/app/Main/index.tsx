@@ -1,6 +1,5 @@
 import { Suspense, useEffect, useState } from 'react';
-import { PlusSquareFilled, SearchOutlined } from '@ant-design/icons';
-import { Modal } from 'antd';
+import { PlusOutlined, SearchOutlined } from '@ant-design/icons';
 
 import { useQueryLoader } from 'react-relay';
 import { Product } from '../../../types/product';
@@ -15,16 +14,10 @@ import {
   Content,
   Header,
   HeaderActions,
-  Main,
 } from './styles';
 
-
 const Products: React.FC = () => {
-  // const data = useLazyLoadQuery(
-  //   productsQuery,
-  //   { },
-  //   { fetchPolicy: 'network-only' },
-  // );
+  const [showProductModal, setShowProductModal] = useState<{ show: boolean, product?: Product }>({ show: false });
 
   const [queryReference, loadQuery] = useQueryLoader(
     productsQuery,
@@ -32,28 +25,20 @@ const Products: React.FC = () => {
 
   useEffect(() => {
     loadQuery({});
-  }, [loadQuery]);
+  }, []);
 
-  const [showProductModal, setShowProductModal] = useState<{ show: boolean, product?: Product }>({ show: false });
+  function reloadList() {
+    loadQuery({}, { fetchPolicy: 'network-only' });
+  }
 
   function handleCloseModal(reloadList: boolean) {
-    // use query to reload list
+    if (reloadList) loadQuery({});
+
     setShowProductModal({ show: false });
   }
 
   function editProduct(product: Product) {
     setShowProductModal({ show: true, product });
-  }
-
-  function deleteProduct(id: string) {
-    Modal.confirm({
-      title: 'Confirm',
-      content: 'Are you sure you want to delete this product? This action cannot be reversed.',
-      onOk: () => {
-        alert('deletedProduct');
-        // usemutation - get all products after deletion
-      },
-    });
   }
 
   return (
@@ -65,7 +50,7 @@ const Products: React.FC = () => {
           <HeaderActions>
             <Button
               type='primary'
-              icon={<PlusSquareFilled />}
+              icon={<PlusOutlined />}
               onClick={() => setShowProductModal({ show: true })}
             >
               NEW PRODUCT
@@ -77,17 +62,17 @@ const Products: React.FC = () => {
             />
           </HeaderActions>
         </Header>
-        <Main>
+        <main>
           { queryReference &&
             <Suspense fallback={'Loading products...'}>
               <Table
                 queryReference={queryReference}
-                deleteProduct={deleteProduct}
+                loadQuery={reloadList}
                 editProduct={editProduct}
               />
             </Suspense>
           }
-        </Main>
+        </main>
       </Content>
       <ProductModal
         open={showProductModal.show}

@@ -1,6 +1,6 @@
-import { Table as AntdTable } from 'antd';
+import { Table as AntdTable, Modal } from 'antd';
 import { ColumnsType } from 'antd/es/table';
-import { PreloadedQuery, usePreloadedQuery } from 'react-relay';
+import { PreloadedQuery, usePreloadedQuery, useMutation } from 'react-relay';
 // @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
 
@@ -23,15 +23,45 @@ export const productsQuery = graphql`
 `;
 
 export interface Props {
-  deleteProduct: (id: string) => void;
   editProduct: (product: Product) => void;
   queryReference: PreloadedQuery<typeof productsQuery>;
+  loadQuery: () => void;
 }
 
-const Table: React.FC<Props> = ({ deleteProduct, editProduct, queryReference }) => {
+const Table: React.FC<Props> = ({ editProduct, queryReference, loadQuery }) => {
   const data = usePreloadedQuery<typeof productsQuery>(productsQuery, queryReference);
 
-  console.log({ data });
+  const [commit, isInFlight] = useMutation(graphql`
+    mutation Table_delete_Mutation($data: DeleteProductInput!) {
+      deleteProduct(data: $data) {
+        _id,
+      }
+    }
+  `);
+
+  function deleteProduct(_id: string) {
+    Modal.confirm({
+      title: 'Confirm',
+      content: 'Are you sure you want to delete this product? This action cannot be reversed.',
+      onOk: () => {
+        commit({
+          variables: {
+            data: { _id },
+          },
+          onCompleted(response: any, errors) {
+            loadQuery();
+          },
+          onError(error) {
+            console.log(error);
+            Modal.error({
+              title: 'Ops...',
+              content: 'Cannot delete product. Try again later.',
+            });
+          }
+        });
+      },
+    });
+  }
 
   const columns: ColumnsType<Product> = [
     {
@@ -67,7 +97,7 @@ const Table: React.FC<Props> = ({ deleteProduct, editProduct, queryReference }) 
       render: (_, record) => (
         <TableActions
           options={[
-            { title: 'Edit', action: () => editProduct(record) },
+            { title: 'Edit', action: () => editProduct(record), loading: isInFlight },
             { title: 'Delete', action: () => deleteProduct(record._id) }
           ]}
         />

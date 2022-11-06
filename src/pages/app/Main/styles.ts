@@ -33,6 +33,3 @@ export const HeaderActions = styled.div`
 
   width: 100%;
 `;
-
-export const Main = styled.main``;
-
