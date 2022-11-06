@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Table as AntdTable, Modal } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { PreloadedQuery, usePreloadedQuery, useMutation } from 'react-relay';
@@ -26,10 +27,18 @@ export interface Props {
   editProduct: (product: Product) => void;
   queryReference: PreloadedQuery<typeof productsQuery>;
   loadQuery: () => void;
+  productsFilter: string;
 }
 
-const Table: React.FC<Props> = ({ editProduct, queryReference, loadQuery }) => {
+const Table: React.FC<Props> = ({ editProduct, queryReference, loadQuery, productsFilter }) => {
   const data = usePreloadedQuery<typeof productsQuery>(productsQuery, queryReference);
+  
+  const filteredProducts = useMemo(() => (
+    data.listProducts.filter((product: Product) => (
+      product.name.includes(productsFilter) ||
+      product.barcode.includes(productsFilter)
+    ))
+  ), [data.listProducts, productsFilter]);
 
   const [commit, isInFlight] = useMutation(graphql`
     mutation Table_delete_Mutation($data: DeleteProductInput!) {
@@ -108,7 +117,7 @@ const Table: React.FC<Props> = ({ editProduct, queryReference, loadQuery }) => {
   return (
     <AntdTable
       columns={columns}
-      dataSource={data.listProducts}
+      dataSource={filteredProducts}
       pagination={false}
     />
   )

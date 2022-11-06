@@ -23,6 +23,7 @@ import {
 
 const Products: React.FC = () => {
   const [showProductModal, setShowProductModal] = useState<{ show: boolean, product?: Product }>({ show: false });
+  const [productsFilter, setProductsFilter] = useState('');
 
   const { user } = useSelector((state: RootState) => state.auth);
 
@@ -78,6 +79,8 @@ const Products: React.FC = () => {
               style={{ width: '40%' }}
               placeholder='Search...'
               prefix={<SearchOutlined />}
+              value={productsFilter}
+              onChange={(e) => setProductsFilter(e.target.value)}
             />
           </HeaderActions>
         </Header>
@@ -88,6 +91,7 @@ const Products: React.FC = () => {
                 queryReference={queryReference}
                 loadQuery={reloadList}
                 editProduct={editProduct}
+                productsFilter={productsFilter}
               />
             </Suspense>
           }
