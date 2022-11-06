@@ -12,6 +12,8 @@ export default function authReducer(state = initialState, action: AnyAction): Au
   case AuthActions.LOGIN:
     const { user } = action.payload;
     return { ...state, user, isLogged: true };
+  case AuthActions.LOGOUT:
+    return { ...state, user: null, isLogged: false };
   default:
     return state;
   }

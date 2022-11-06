@@ -1,7 +1,8 @@
 import { User } from '../../types/user';
 
 export enum AuthActions {
-  LOGIN = 'LOGIN'
+  LOGIN = 'LOGIN',
+  LOGOUT = 'LOGOUT',
 };
 
 export interface AuthReducerProps {

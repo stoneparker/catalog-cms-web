@@ -17,7 +17,18 @@ export const Content = styled.div`
 `;
 
 export const Header = styled.header`
-  margin-bottom: 40px;
+  margin-bottom: 30px;
+
+  article {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  h1 {
+    font-weight: bold;
+    font-size: 1.8rem;
+    color: #434343;
+  }
 
   span#salutation {
     text-transform: uppercase;

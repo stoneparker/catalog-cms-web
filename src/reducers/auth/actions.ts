@@ -9,3 +9,9 @@ export function login(user: User) {
     payload: { user },
   });
 }
+
+export function logout() {
+  store.dispatch({
+    type: AuthActions.LOGOUT,
+  });
+}
