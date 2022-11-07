@@ -107,8 +107,8 @@ const Table: React.FC<Props> = ({ editProduct, queryReference, loadQuery, produc
       render: (_, record) => (
         <TableActions
           options={[
-            { title: 'Edit', action: () => editProduct(record), loading: isInFlight },
-            { title: 'Delete', action: () => deleteProduct(record._id) }
+            { title: 'Edit', action: () => editProduct(record) },
+            { title: 'Delete', action: () => deleteProduct(record._id), loading: isInFlight }
           ]}
         />
       ),
