@@ -4,7 +4,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100vw;
+  width: 100%;
   height: 100%;
   padding: 50px 0;
   background-color: #F7F7FA;
@@ -14,6 +14,10 @@ export const Content = styled.div`
   display: grid;
   grid-template-rows: auto 1fr;
   width: 70%;
+
+  @media (max-width: 800px) {
+    width: 90%;
+  }
 `;
 
 export const Header = styled.header`

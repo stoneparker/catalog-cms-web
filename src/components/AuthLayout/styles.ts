@@ -17,6 +17,11 @@ export const Container = styled.div`
   aside img {
     max-width: 75%;
   }
+
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr;
+    aside { display: none };
+  }
 `;
 
 export const Main = styled.main`
@@ -32,5 +37,9 @@ export const Main = styled.main`
     padding: 40px;
     border-radius: 8px;
     box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+  }
+
+  @media (max-width: 800px) {
+    article { width: 80% };
   }
 `
