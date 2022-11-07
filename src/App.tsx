@@ -7,7 +7,7 @@ import RelayEnvironment from './services/RelayEnv';
 import { store } from './reducers/store';
 
 import GlobalStyle from './styles';
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.less';
 
 function App() {
   return (

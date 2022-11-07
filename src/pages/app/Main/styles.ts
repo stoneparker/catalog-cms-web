@@ -7,7 +7,6 @@ export const Container = styled.div`
   width: 100%;
   height: 100%;
   padding: 50px 0;
-  background-color: #F7F7FA;
 `;
 
 export const Content = styled.div`
