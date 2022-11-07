@@ -4,11 +4,12 @@ import { store } from '../reducers/store';
 const fetchRelay: FetchFunction = async (query, variables) => {
   const { user } = store.getState().auth;
 
-  const response = await fetch('http://localhost:4000', {
+  const response = await fetch('http://localhost:4000/', {
     method: 'POST',
     headers: {
       Authorization: user?.token || '',
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
     },
     body: JSON.stringify({
       query: query.text,
