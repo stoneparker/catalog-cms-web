@@ -41,8 +41,8 @@ const Products: React.FC = () => {
     loadQuery({}, { fetchPolicy: 'network-only' });
   }
 
-  function handleCloseModal(reloadList: boolean) {
-    if (reloadList) loadQuery({});
+  function handleCloseModal(reload: boolean) {
+    if (reload) reloadList();
 
     setShowProductModal({ show: false });
   }
