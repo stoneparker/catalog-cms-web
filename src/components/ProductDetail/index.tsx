@@ -12,7 +12,7 @@ const ProductDetail: React.FC<Props> = ({ imageUrl, name, description }) => {
       <img src={imageUrl} alt={name} />
       <div className='product-detail__sider'>
         <h3>{name}</h3>
-        <span>{description}</span>
+        <span title={description}>{description}</span>
       </div>
     </Container>
   )

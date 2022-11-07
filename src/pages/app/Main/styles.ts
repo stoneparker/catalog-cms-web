@@ -5,18 +5,16 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 100%;
-  padding: 50px 0;
+  padding: 50px;
+
+  @media (max-width: 800px) {
+    padding: 50px 30px;
+  }
 `;
 
 export const Content = styled.div`
   display: grid;
   grid-template-rows: auto 1fr;
-  width: 70%;
-
-  @media (max-width: 800px) {
-    width: 90%;
-  }
 `;
 
 export const Header = styled.header`

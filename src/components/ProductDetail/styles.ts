@@ -26,11 +26,15 @@ export const Container = styled.div`
     span {
       color: #B2B2B7;
       display: inline-block;
-      width: 250px;
+      max-width: 250px;
       vertical-align: bottom;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+
+    @media (max-width: 575px) {
+      span { display: none };
     }
   }
 `;

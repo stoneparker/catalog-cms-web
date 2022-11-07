@@ -7,3 +7,9 @@ export interface Product {
   availableQuantity: number,
   barcode: string,
 }
+
+export interface ShowModalProps {
+  show: boolean;
+  product?: Product;
+}
+

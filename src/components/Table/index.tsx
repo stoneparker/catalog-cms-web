@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Table as AntdTable, Modal } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { PreloadedQuery, usePreloadedQuery, useMutation } from 'react-relay';
@@ -7,7 +7,8 @@ import graphql from 'babel-plugin-relay/macro';
 
 import ProductDetail from '../ProductDetail';
 import TableActions from '../TableActions';
-import { Product } from '../../types/product';
+import ProductDetailModal from '../ProductDetailModal';
+import { Product, ShowModalProps } from '../../types/product';
 
 export const productsQuery = graphql`
   query TableQuery {
@@ -31,6 +32,8 @@ export interface Props {
 }
 
 const Table: React.FC<Props> = ({ editProduct, queryReference, loadQuery, productsFilter }) => {
+  const [showDetailsModal, setShowDetailsModal] = useState<ShowModalProps>({ show: false });
+
   const data = usePreloadedQuery<typeof productsQuery>(productsQuery, queryReference);
   
   const filteredProducts = useMemo(() => (
@@ -57,7 +60,7 @@ const Table: React.FC<Props> = ({ editProduct, queryReference, loadQuery, produc
           variables: {
             data: { _id },
           },
-          onCompleted(response: any, errors) {
+          onCompleted() {
             loadQuery();
           },
           onError(error) {
@@ -89,17 +92,20 @@ const Table: React.FC<Props> = ({ editProduct, queryReference, loadQuery, produc
       title: 'Barcode',
       dataIndex: 'barcode',
       key: 'barcode',
+      responsive: ['sm'],
     },
     {
       title: 'Available quantity',
       dataIndex: 'availableQuantity',
       key: 'availableQuantity',
+      responsive: ['sm'],
     },
     {
       title: 'Price',
       dataIndex: 'price',
       key: 'price',
-      render: (value) => <span>${value}</span>
+      render: (value) => <span>${value}</span>,
+      responsive: ['sm'],
     },
     {
       title: 'Actions',
@@ -112,15 +118,48 @@ const Table: React.FC<Props> = ({ editProduct, queryReference, loadQuery, produc
           ]}
         />
       ),
+      responsive: ['sm'],
+    },
+    {
+      title: 'Options',
+      key: 'options',
+      render: (_, record) => (
+        <TableActions
+          options={[
+            { title: 'Details', action: () => setShowDetailsModal({ show: true, product: record }) },
+          ]}
+        />
+      ),
+      responsive: ['xs'],
     },
   ];
 
   return (
-    <AntdTable
-      columns={columns}
-      dataSource={filteredProducts}
-      pagination={false}
-    />
+    <>
+      <AntdTable
+        columns={columns}
+        dataSource={filteredProducts}
+        pagination={false}
+      />
+      <ProductDetailModal
+        open={showDetailsModal.show}
+        product={showDetailsModal.product}
+        close={() => setShowDetailsModal({ show: false })}
+      >
+        <TableActions
+          options={[
+            { title: 'Edit', action: () => {
+              setShowDetailsModal({ show: false });
+              editProduct(showDetailsModal.product!);
+            }},
+            { title: 'Delete', action: () => {
+              setShowDetailsModal({ show: false});
+              deleteProduct(showDetailsModal.product!._id);
+            }, loading: isInFlight }
+          ]}
+        />
+      </ProductDetailModal>
+    </>
   )
 }
 

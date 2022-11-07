@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { PlusOutlined, SearchOutlined } from '@ant-design/icons';
 
 import { useQueryLoader } from 'react-relay';
-import { Product } from '../../../types/product';
+import { Product, ShowModalProps } from '../../../types/product';
 
 import { RootState } from '../../../reducers/store';
 import { logout } from '../../../reducers/auth/actions';
@@ -22,7 +22,7 @@ import {
 } from './styles';
 
 const Products: React.FC = () => {
-  const [showProductModal, setShowProductModal] = useState<{ show: boolean, product?: Product }>({ show: false });
+  const [showProductModal, setShowProductModal] = useState<ShowModalProps>({ show: false });
   const [productsFilter, setProductsFilter] = useState('');
 
   const { user } = useSelector((state: RootState) => state.auth);

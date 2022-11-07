@@ -112,7 +112,6 @@ const ProductModal: React.FC<Props> = ({ open, product, close }) => {
       onOk={handleOk}
       onCancel={handleCancel}
       confirmLoading={isInFlight_new || isInFlight_update}
-
     >
       <Form
         form={form}
