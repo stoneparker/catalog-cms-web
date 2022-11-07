@@ -159,7 +159,7 @@ const ProductModal: React.FC<Props> = ({ open, product, close }) => {
               labelCol={{ span: 24 }}
               rules={[{ required: true, message: 'Please input the product price' }]}
             >
-              <Input addonBefore='R$' type='number' />
+              <Input addonBefore='$' type='number' />
             </Form.Item>
           </Col>
 
