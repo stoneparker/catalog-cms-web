@@ -1,6 +1,5 @@
 import { Modal } from 'antd';
 import { Product } from '../../types/product';
-import ProductDetail from '../ProductDetail';
 
 import { Content, Footer } from './styles';
 
