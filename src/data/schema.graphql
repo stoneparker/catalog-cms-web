@@ -48,7 +48,7 @@ input ProductInput {
   description: String!
   imageUrl: String!
   name: String!
-  price: String!
+  price: Float!
 }
 
 type ProductModel {
@@ -58,7 +58,7 @@ type ProductModel {
   description: String!
   imageUrl: String!
   name: String!
-  price: String!
+  price: Float!
 }
 
 input ProductModelInput {
@@ -68,7 +68,7 @@ input ProductModelInput {
   description: String!
   imageUrl: String!
   name: String!
-  price: String!
+  price: Float!
 }
 
 type Query {

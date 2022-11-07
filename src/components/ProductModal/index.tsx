@@ -83,7 +83,8 @@ const ProductModal: React.FC<Props> = ({ open, product, close }) => {
       .validateFields()
       .then((values) => {
         values.availableQuantity = Number(values.availableQuantity);
-        console.log(values);
+        values.price = Number(values.price);
+
         if (product)
           return updateProduct(values);
 
@@ -123,6 +124,7 @@ const ProductModal: React.FC<Props> = ({ open, product, close }) => {
               name='name'
               label='Name'
               labelCol={{ span: 24 }}
+              rules={[{ required: true, message: 'Please input the product name' }]}
             >
               <Input />
             </Form.Item>
@@ -133,6 +135,7 @@ const ProductModal: React.FC<Props> = ({ open, product, close }) => {
               name='barcode'
               label='Barcode'
               labelCol={{ span: 24 }}
+              rules={[{ required: true, message: 'Please input the product barcode' }]}
             >
               <Input />
             </Form.Item>
@@ -143,6 +146,7 @@ const ProductModal: React.FC<Props> = ({ open, product, close }) => {
           name='description'
           label='Description'
           labelCol={{ span: 24 }}
+          rules={[{ required: true, message: 'Please input the product description' }]}
         >
           <Input type='textarea' />
         </Form.Item>
@@ -153,8 +157,9 @@ const ProductModal: React.FC<Props> = ({ open, product, close }) => {
               name='price'
               label='Price'
               labelCol={{ span: 24 }}
+              rules={[{ required: true, message: 'Please input the product price' }]}
             >
-              <Input addonBefore="R$" />
+              <Input addonBefore='R$' type='number' />
             </Form.Item>
           </Col>
 
@@ -163,6 +168,8 @@ const ProductModal: React.FC<Props> = ({ open, product, close }) => {
               name='availableQuantity'
               label='Available quantity'
               labelCol={{ span: 24 }}
+              initialValue={0}
+              rules={[{ required: true, message: 'Please input the product quantity' }]}
             >
               <Input type='number' />
             </Form.Item>
@@ -173,6 +180,7 @@ const ProductModal: React.FC<Props> = ({ open, product, close }) => {
           name='imageUrl'
           label='Image URL'
           labelCol={{ span: 24 }}
+          rules={[{ required: true, message: 'Please input the product image URL' }]}
         >
           <Input />
         </Form.Item>

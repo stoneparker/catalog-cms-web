@@ -99,6 +99,7 @@ const Table: React.FC<Props> = ({ editProduct, queryReference, loadQuery, produc
       title: 'Price',
       dataIndex: 'price',
       key: 'price',
+      render: (value) => <span>R$ {value}</span>
     },
     {
       title: 'Actions',
