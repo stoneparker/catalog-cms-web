@@ -8,6 +8,6 @@ export const products: Product[] = [
     description: 'djiskajdkladsa',
     imageUrl: 'https://a-static.mlcdn.com.br/800x560/apple-watch-se-40mm-gps-cellular-caixa-cinza-espacial-pulseira-loop-esportiva/magazineluiza/233012900/57cf897d45f15bf86cc2f1ac1efda85b.jpg',
     name: 'Apple Watch',
-    price: 'R$ 12.312',
+    price: 12.312,
   }
 ];
