@@ -10,6 +10,7 @@ import Button from '../../../components/Button';
 import Link from '../../../components/Link';
 
 import { login } from '../../../reducers/auth/actions';
+import getErrorMessage from '../../../utils/getErrorMessage';
 
 const SignUp: React.FC = () => {
   const [form] = Form.useForm();
@@ -44,7 +45,7 @@ const SignUp: React.FC = () => {
             console.log(error);
             Modal.error({
               title: 'Ops...',
-              content: 'User already exists',
+              content: getErrorMessage(error),
             });
           }
         })

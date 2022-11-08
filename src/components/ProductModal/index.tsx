@@ -9,6 +9,7 @@ import Input from '../Input';
 import { Product } from '../../types/product';
 
 import { ImageWrapper } from './styles';
+import getErrorMessage from '../../utils/getErrorMessage';
 
 export interface Props {
   product?: Product;
@@ -51,7 +52,7 @@ const ProductModal: React.FC<Props> = ({ open, product, close }) => {
         console.log(error);
         Modal.error({
           title: 'Ops...',
-          content: 'Already exists a product with that name or barcode',
+          content: getErrorMessage(error),
         });
       }
     });
@@ -72,7 +73,7 @@ const ProductModal: React.FC<Props> = ({ open, product, close }) => {
         console.log(error);
         Modal.error({
           title: 'Ops...',
-          content: 'Product not exists or already exists a product with that name or barcode',
+          content: getErrorMessage(error),
         });
       }
     });

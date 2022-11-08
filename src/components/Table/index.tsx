@@ -9,6 +9,7 @@ import ProductDetails from '../ProductDetails';
 import TableActions from '../TableActions';
 import ProductDetailsModal from '../ProductDetailsModal';
 import { Product, ShowModalProps } from '../../types/product';
+import getErrorMessage from '../../utils/getErrorMessage';
 
 export const productsQuery = graphql`
   query TableQuery {
@@ -67,7 +68,7 @@ const Table: React.FC<Props> = ({ editProduct, queryReference, loadQuery, produc
             console.log(error);
             Modal.error({
               title: 'Ops...',
-              content: 'Cannot delete product. Try again later.',
+              content: getErrorMessage(error),
             });
           }
         });

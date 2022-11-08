@@ -9,6 +9,8 @@ import AuthLayout from '../../../components/AuthLayout';
 import Button from '../../../components/Button';
 import Link from '../../../components/Link';
 
+import getErrorMessage from '../../../utils/getErrorMessage';
+
 import { login } from '../../../reducers/auth/actions';
 
 const SignIn: React.FC = () => {
@@ -41,10 +43,9 @@ const SignIn: React.FC = () => {
             form.resetFields();
           },
           onError(error) {
-            console.log(error);
             Modal.error({
               title: 'Ops...',
-              content: 'Incorrect user or password',
+              content: getErrorMessage(error),
             });
           }
         })
