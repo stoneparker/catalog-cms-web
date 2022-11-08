@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+npm run fetchSchema && git add ./src/data/schema.graphql && git commit -m 'refactor: update graphql schema'
