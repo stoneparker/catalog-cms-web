@@ -6,7 +6,7 @@ export interface Props {
   description: string;
 }
 
-const ProductDetail: React.FC<Props> = ({ imageUrl, name, description }) => {
+const ProductDetails: React.FC<Props> = ({ imageUrl, name, description }) => {
   return (
     <Container>
       <img src={imageUrl} alt={name} />
@@ -18,4 +18,4 @@ const ProductDetail: React.FC<Props> = ({ imageUrl, name, description }) => {
   )
 }
 
-export default ProductDetail;
+export default ProductDetails;

@@ -5,9 +5,9 @@ import { PreloadedQuery, usePreloadedQuery, useMutation } from 'react-relay';
 // @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
 
-import ProductDetail from '../ProductDetail';
+import ProductDetails from '../ProductDetails';
 import TableActions from '../TableActions';
-import ProductDetailModal from '../ProductDetailModal';
+import ProductDetailsModal from '../ProductDetailsModal';
 import { Product, ShowModalProps } from '../../types/product';
 
 export const productsQuery = graphql`
@@ -81,7 +81,7 @@ const Table: React.FC<Props> = ({ editProduct, queryReference, loadQuery, produc
       key: 'productDetails',
       dataIndex: 'name',
       render: (_, record) => (
-        <ProductDetail
+        <ProductDetails
           imageUrl={record.imageUrl}
           description={record.description}
           name={record.name}
@@ -141,7 +141,7 @@ const Table: React.FC<Props> = ({ editProduct, queryReference, loadQuery, produc
         dataSource={filteredProducts}
         pagination={false}
       />
-      <ProductDetailModal
+      <ProductDetailsModal
         open={showDetailsModal.show}
         product={showDetailsModal.product}
         close={() => setShowDetailsModal({ show: false })}
@@ -158,7 +158,7 @@ const Table: React.FC<Props> = ({ editProduct, queryReference, loadQuery, produc
             }, loading: isInFlight }
           ]}
         />
-      </ProductDetailModal>
+      </ProductDetailsModal>
     </>
   )
 }

@@ -10,7 +10,7 @@ export interface Props {
   children: React.ReactNode;
 }
 
-export const ProductDetailModal: React.FC<Props> = ({ product, open, close, children }) => {
+export const ProductDetailsModal: React.FC<Props> = ({ product, open, close, children }) => {
   if (!product) return null;
 
   return (
@@ -51,4 +51,4 @@ export const ProductDetailModal: React.FC<Props> = ({ product, open, close, chil
   );
 }
 
-export default ProductDetailModal;
+export default ProductDetailsModal;
