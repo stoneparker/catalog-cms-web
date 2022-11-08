@@ -10,7 +10,7 @@ export interface Props {
   children: React.ReactNode;
 }
 
-const SignUp: React.FC<Props> = ({ title, children }) => {
+const AuthLayout: React.FC<Props> = ({ title, children }) => {
   return (
     <Container>
       <aside>
@@ -26,4 +26,4 @@ const SignUp: React.FC<Props> = ({ title, children }) => {
   )
 }
 
-export default SignUp;
+export default AuthLayout;
