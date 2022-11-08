@@ -8,7 +8,9 @@
     "relay": "relay-compiler",
     "test": "craco test",
     "eject": "craco eject",
-    "fetchSchema": "curl http://localhost:3333/schema.gql > schema.graphql"
+    "fetchSchema": "curl http://localhost:3333/schema.gql > schema.graphql",
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "relay": {
     "src": "./src/",
@@ -17,6 +19,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
+    "@semantic-ui-react/craco-less": "^2.0.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -42,6 +45,16 @@
     "extends": [
       "react-app",
       "react-app/jest"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      }
     ]
   },
   "browserslist": {
@@ -58,12 +71,29 @@
   },
   "devDependencies": {
     "@craco/craco": "^6.4.5",
+    "@storybook/addon-actions": "^6.5.13",
+    "@storybook/addon-essentials": "^6.5.13",
+    "@storybook/addon-interactions": "^6.5.13",
+    "@storybook/addon-links": "^6.5.13",
+    "@storybook/builder-webpack5": "^6.5.13",
+    "@storybook/manager-webpack5": "^6.5.13",
+    "@storybook/node-logger": "^6.5.13",
+    "@storybook/preset-ant-design": "^0.0.2",
+    "@storybook/preset-create-react-app": "^4.1.2",
+    "@storybook/react": "^6.5.13",
+    "@storybook/testing-library": "^0.0.13",
     "@types/react-relay": "^14.1.2",
     "@types/relay-runtime": "^14.1.4",
     "@types/styled-components": "^5.1.26",
+    "babel-plugin-named-exports-order": "^0.0.2",
     "babel-plugin-relay": "^14.1.0",
     "craco-less": "^2.0.0",
+    "css-loader": "^6.7.1",
+    "less-loader": "^11.1.0",
+    "prop-types": "^15.8.1",
     "relay-compiler": "^14.1.0",
-    "relay-compiler-language-typescript": "^13.0.10"
+    "relay-compiler-language-typescript": "^13.0.10",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.74.0"
   }
 }
