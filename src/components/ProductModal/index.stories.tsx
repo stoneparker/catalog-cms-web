@@ -21,16 +21,12 @@ export default {
       handlers: [
         graphql.mutation('ProductModal_new_Mutation', (req, res, ctx) => {
           return res(
-            ctx.data({
-              _id: '183928719',
-            }),
+            ctx.data({ _id: '183928719' }),
           )
         }),
         graphql.mutation('ProductModal_update_Mutation', (req, res, ctx) => {
           return res(
-            ctx.data({
-              _id: '183928719',
-            }),
+            ctx.data({ _id: '183928719' }),
           )
         }),
       ]
