@@ -1,7 +1,12 @@
 import { addDecorator } from '@storybook/react';
-import GlobalStyle from '../src/styles';
+import { initialize, mswDecorator } from 'msw-storybook-addon';
 
+import GlobalStyle from '../src/styles';
 import 'antd/dist/antd.less';
+
+initialize();
+
+export const decorators = [mswDecorator];
 
 addDecorator((story) => (
   <>

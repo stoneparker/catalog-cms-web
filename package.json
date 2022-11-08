@@ -90,10 +90,15 @@
     "craco-less": "^2.0.0",
     "css-loader": "^6.7.1",
     "less-loader": "^11.1.0",
+    "msw": "^0.48.0",
+    "msw-storybook-addon": "^1.6.3",
     "prop-types": "^15.8.1",
     "relay-compiler": "^14.1.0",
     "relay-compiler-language-typescript": "^13.0.10",
     "style-loader": "^3.3.1",
     "webpack": "^5.74.0"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
