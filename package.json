@@ -3,15 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "npm run relay && craco start",
-    "build": "npm run relay && craco build",
+    "start": "npm run fetchSchema && npm run relay && craco start",
+    "build": "npm run fetchSchema && npm run relay && craco build",
     "relay": "relay-compiler",
     "test": "craco test",
-    "eject": "craco eject"
+    "eject": "craco eject",
+    "fetchSchema": "curl http://localhost:3333/schema.gql > schema.graphql"
   },
   "relay": {
     "src": "./src/",
-    "schema": "./src/data/schema.graphql",
+    "schema": "./schema.graphql",
     "language": "typescript"
   },
   "dependencies": {
