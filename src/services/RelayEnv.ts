@@ -4,7 +4,7 @@ import { store } from '../reducers/store';
 const fetchRelay: FetchFunction = async (query, variables) => {
   const { user } = store.getState().auth;
 
-  const response = await fetch('https://catalog-cms.herokuapp.com/', {
+  const response = await fetch('http://localhost:4000/', {
     method: 'POST',
     headers: {
       Authorization: user?.token || '',
