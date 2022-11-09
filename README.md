@@ -18,5 +18,5 @@ Web app for Product Catalog CMS. API: [catalog-cms-graphql-api](https://github.c
 - [x] deploy (Netlify)
   - [ ] deploy Storybook
 - [ ] CI/CD (GitHub Actions, CircleCI etc)
-- [ ] update GraphQL schema on start and pre-push ([Husky](https://typicode.github.io/husky))
+- [x] update GraphQL schema on start and pre-push ([Husky](https://typicode.github.io/husky))
 - [ ] configure [ESLint](https://eslint.org/)
