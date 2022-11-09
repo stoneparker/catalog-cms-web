@@ -1,4 +1,5 @@
 # Product Catalog CMS
+Web app for Product Catalog CMS. API: [catalog-cms-graphql-api](https://github.com/stoneparker/catalog-cms-graphql-api).
 
 ## Tasks
 ### Basic requirements
