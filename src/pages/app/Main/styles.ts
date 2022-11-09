@@ -15,6 +15,8 @@ export const Container = styled.div`
 export const Content = styled.div`
   display: grid;
   grid-template-rows: auto 1fr;
+  width: 900px;
+  max-width: 100%;
 `;
 
 export const Header = styled.header`
