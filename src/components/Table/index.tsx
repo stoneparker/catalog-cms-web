@@ -38,10 +38,14 @@ const Table: React.FC<Props> = ({ editProduct, queryReference, loadQuery, produc
   const data = usePreloadedQuery<typeof productsQuery>(productsQuery, queryReference);
   
   const filteredProducts = useMemo(() => (
-    data.listProducts.filter((product: Product) => (
-      product.name.includes(productsFilter) ||
-      product.barcode.includes(productsFilter)
-    ))
+    data.listProducts.filter((product: Product) => {
+      const filter = productsFilter.toLowerCase();
+
+      return (
+        product.name.toLowerCase().includes(filter) ||
+        product.barcode.toLowerCase().includes(filter)
+      )
+    })
   ), [data.listProducts, productsFilter]);
 
   const [commit, isInFlight] = useMutation(graphql`
