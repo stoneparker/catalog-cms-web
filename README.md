@@ -1,46 +1,22 @@
-# Getting Started with Create React App
+# Product Catalog CMS
+Web app for Product Catalog CMS. API: [catalog-cms-graphql-api](https://github.com/stoneparker/catalog-cms-graphql-api).
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Tasks
+### Basic requirements
+- [x] it should be a [React](https://reactjs.org/) Web App with [Relay](https://relay.dev/)
+- [x] it should support GraphQL Queries with Relay
+- [x] it should support GraphQL Mutations with Relay
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Bonus/improvements
+- [x] open-sourced on your GitHub
+- [ ] automated tests: [react-testing-library](https://testing-library.com/)
+- [x] good design (bonus if using a design system, like [antd](https://ant.design/))
+- [x] authentication system
+- [x] [Storybook](https://storybook.js.org/)
+  - [ ] document Table component
+- [ ] [GraphQL Playground](https://github.com/graphql/graphql-playground)
+- [x] deploy (Netlify)
+  - [ ] deploy Storybook
+- [ ] CI/CD (GitHub Actions, CircleCI etc)
+- [ ] update GraphQL schema on start and pre-push ([Husky](https://typicode.github.io/husky))
+- [ ] configure [ESLint](https://eslint.org/)
